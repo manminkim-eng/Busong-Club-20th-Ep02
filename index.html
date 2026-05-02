@@ -691,6 +691,37 @@
 // ===== 데이터 (서버에서 인라인 주입) =====
 // ===== 사진 데이터 (외부 파일 참조) =====
 const PHOTOS_BASE = "./assets/photos/";
+
+// ===== 사진 로딩 자동 복구 (Linux 서버 대소문자 차이 대응) =====
+window.tryFallback = function(img) {
+  const filename = img.getAttribute('data-filename');
+  const attempt = parseInt(img.getAttribute('data-attempt') || '0');
+  
+  if (attempt === 0) {
+    // 1차 시도: 전체 소문자
+    img.setAttribute('data-attempt', '1');
+    img.src = PHOTOS_BASE + filename.toLowerCase();
+    console.warn('[사진 로딩 실패 → 소문자 시도]', filename);
+  } else if (attempt === 1) {
+    // 2차 시도: 확장자만 대문자
+    img.setAttribute('data-attempt', '2');
+    const base = filename.replace(/\.[^.]+$/, '');
+    img.src = PHOTOS_BASE + base.toLowerCase() + '.JPG';
+    console.warn('[2차 실패 → .JPG 시도]', filename);
+  } else if (attempt === 2) {
+    // 3차 시도: 전체 대문자
+    img.setAttribute('data-attempt', '3');
+    img.src = PHOTOS_BASE + filename.toUpperCase();
+    console.warn('[3차 실패 → 대문자 시도]', filename);
+  } else {
+    // 모든 시도 실패: placeholder 표시
+    img.removeAttribute('onerror');
+    img.style.cssText = 'background:#1a1410;color:#E1C58A;display:flex;align-items:center;justify-content:center;font-size:0.7rem;padding:1rem;text-align:center;';
+    img.alt = '사진을 찾을 수 없음: ' + filename;
+    console.error('[최종 실패] 모든 케이스로 시도해도 못 찾음:', filename);
+  }
+};
+
 const photoMap = {
   "20110220_110DA54C4D61F1.jpg": PHOTOS_BASE + "20110220_110DA54C4D61F1.jpg",
   "20110220_134E61494D61F1.jpg": PHOTOS_BASE + "20110220_134E61494D61F1.jpg",
@@ -801,7 +832,12 @@ storyData.chapters.forEach(ch => {
     allPhotos.push(p);
     return `
       <div class="photo" onclick="openLb(${idx})">
-        <img src="${photoMap[p.filename]}" alt="${p.caption||p.date}" loading="lazy" decoding="async">
+        <img src="${photoMap[p.filename]}" 
+             data-filename="${p.filename}"
+             alt="${p.caption||p.date}" 
+             loading="lazy" 
+             decoding="async"
+             onerror="tryFallback(this)">
         <div class="meta">
           <div class="date">${p.date}</div>
           <div class="cap">${p.caption||''}</div>
