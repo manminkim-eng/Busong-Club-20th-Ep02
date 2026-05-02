@@ -28,11 +28,10 @@
 <!-- 카톡 인앱 추가 호환 -->
 <meta name="theme-color" content="#0D1B33" />
 <meta itemprop="image" content="https://manminkim-eng.github.io/Busong-Club-20th-Ep02/og_banner.jpg" />
-<!-- 📁 분리 구조 (v2): 사진/BGM/썸네일 → 외부 파일 참조
-     - 루트:  index.html, og_banner.jpg
-     - 자산:  assets/bgm.mp3, assets/thumbnail.jpg, assets/photos/*.jpg (61개)
-     배포 경로: https://manminkim-eng.github.io/Busong-Club-20th-Ep02/
-     OG 이미지는 위 절대 URL을 가리키므로 og_banner.jpg는 반드시 루트에 위치해야 함 -->
+<!-- ⚠️ 안내: og:image는 외부 URL 필수 (카톡/페북/트위터 모두 data: URL 미지원)
+     실제 공유 작동을 위해 og_banner.jpg를 다음 경로에 업로드 필요:
+     https://manminkim-eng.github.io/Busong-Club-20th-Ep02/og_banner.jpg
+     단일 HTML 자체는 외부 의존 없이 그대로 작동 (사진/BGM/폰트 모두 인라인) -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;900&family=Noto+Serif+KR:wght@400;700;900&display=swap" rel="stylesheet">
@@ -319,20 +318,6 @@
   .photo .meta .cap{color:#ddd;line-height:1.4}
 
   /* ============== 비디오 섹션 (영상 임베드) ============== */
-  .thumb-banner{
-    max-width:920px;margin:0 auto 2rem;
-    border:1px solid var(--line);border-radius:6px;overflow:hidden;
-    background:var(--navy-deep);
-    box-shadow:0 12px 40px rgba(0,0,0,.35);
-    transition:transform .3s, box-shadow .3s;
-  }
-  .thumb-banner:hover{transform:translateY(-2px);box-shadow:0 18px 50px rgba(201,169,97,.18)}
-  .thumb-banner img{display:block;width:100%;height:auto}
-  .thumb-banner .thumb-cap{
-    color:var(--ivory-mute);font-size:.78rem;letter-spacing:.3em;
-    text-align:center;padding:.7rem 1rem;border-top:1px solid var(--line-soft);
-    background:rgba(0,0,0,.25);
-  }
   .video-sec{
     background:
       linear-gradient(180deg,var(--navy-2) 0%,var(--navy) 100%);
@@ -507,7 +492,7 @@
     <span class="small" id="bgmTime">0:00 / 3:32</span>
   </div>
   <div class="bgm-progress"><div class="bgm-progress-fill" id="bgmFill"></div></div>
-  <audio id="bgm" src="./assets/bgm.mp3" loop preload="none"></audio>
+  <audio id="bgm" src="./assets/bgm.mp3" loop></audio>
 </div>
 
 <!-- 사이드 네비 -->
@@ -517,7 +502,6 @@
   <a href="#story" data-label="5년의 기록"></a>
   <a href="#video" data-label="EP2 영상"></a>
   <a href="#epilogue" data-label="맺으며"></a>
-  <a href="#omnibus" data-label="종합 영상"></a>
 </nav>
 
 <!-- HERO -->
@@ -578,35 +562,26 @@
       <span class="num">VIDEO · D-60 본편</span>
       <h2>EP2 영상으로 만나기</h2>
     </div>
-
-    <!-- 썸네일 배너 (D-60 유튜브 썸네일) -->
-    <a href="https://youtu.be/3lhWBDD2hGc" target="_blank" rel="noopener" class="thumb-banner" title="EP2 「함께 자란 시간」 — 유튜브에서 보기">
-      <img src="./assets/thumbnail.jpg" loading="lazy" alt="EP2 함께 자란 시간 — 2011 → 2015 5년의 발자취 / 59장의 사진" width="1280" height="720" />
-      <div class="thumb-cap">▶ YOUTUBE THUMBNAIL · D-60 EP2</div>
-    </a>
-
     <div class="video-card">
-      <div class="label">★ 본편 영상 · 3분 35초</div>
+      <div class="label">★ 본편 영상 · 약 2분</div>
       <h3>"함께 자란 시간"</h3>
-      <p class="sub">2026년 8월 18일 공개 · 2011 → 2015 · 5년의 발자취</p>
+      <p class="sub">2026년 8월 18일 공개 예정 · 이적 「다행이다」</p>
 
-      <!-- 유튜브 영상 임베드 (3lhWBDD2hGc) -->
+      <!-- 유튜브 ID 입력 후 iframe 활성화 -->
       <div class="video-frame" id="videoFrame">
-        <iframe
-          src="https://www.youtube.com/embed/3lhWBDD2hGc?rel=0&modestbranding=1"
-          title="EP2 함께 자란 시간 — 부송 배드민턴 20주년"
-          frameborder="0"
-          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-          referrerpolicy="strict-origin-when-cross-origin"
-          allowfullscreen></iframe>
+        <div class="video-placeholder">
+          <div class="play-icon"></div>
+          <strong>유튜브 업로드 후 임베드</strong>
+          <span>콘티북 v2.1 EP2 컷 단위 진행 중</span>
+        </div>
       </div>
 
-      <a class="video-cta" href="https://youtu.be/3lhWBDD2hGc" id="ytLink" target="_blank" rel="noopener">▶ 유튜브에서 보기</a>
+      <a class="video-cta" href="#" id="ytLink">▶ 유튜브에서 보기 (D-60 공개)</a>
 
       <div class="video-tracks">
-        <span><b>분량</b> 3분 35초 (215초)</span>
-        <span><b>사진</b> 다음 카페 발굴 58장</span>
-        <span><b>클라이맥스</b> 2015.8.16 야유회 (★)</span>
+        <span><b>BGM</b> 이적 「다행이다」 · 3:32</span>
+        <span><b>분량</b> 약 2분</span>
+        <span><b>클라이맥스</b> 12주년 교류전 (2018.10.13)</span>
       </div>
     </div>
   </div>
@@ -623,40 +598,6 @@
   </div>
 </section>
 
-<!-- 종합 영상 (전체 시리즈 모아보기) -->
-<section class="video-sec" id="omnibus" style="border-top:1px solid var(--line-soft);background:linear-gradient(180deg,var(--navy) 0%,var(--navy-deep) 100%)">
-  <div class="container">
-    <div class="sec-head">
-      <span class="num">★ OMNIBUS · 종합 영상</span>
-      <h2>20년의 한마음, 한 편으로 보기</h2>
-    </div>
-    <div class="video-card">
-      <div class="label">★ 종합 본편 · 시리즈 모아보기</div>
-      <h3>"부송 20주년 종합 영상"</h3>
-      <p class="sub">2007 → 2026 · 20년의 발자취를 한 편의 영상으로</p>
-
-      <!-- 종합 영상 임베드 (SF9k0U0KqrY) -->
-      <div class="video-frame">
-        <iframe
-          src="https://www.youtube.com/embed/SF9k0U0KqrY?rel=0&modestbranding=1"
-          title="부송 배드민턴 클럽 20주년 종합 영상"
-          frameborder="0"
-          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-          referrerpolicy="strict-origin-when-cross-origin"
-          allowfullscreen></iframe>
-      </div>
-
-      <a class="video-cta" href="https://youtu.be/SF9k0U0KqrY" target="_blank" rel="noopener">▶ 유튜브에서 종합 영상 보기</a>
-
-      <div class="video-tracks">
-        <span><b>구성</b> EP1 ~ EP4 + 본편 종합</span>
-        <span><b>시기</b> 2007 ~ 2026</span>
-        <span><b>거점</b> 부송중학교 체육관</span>
-      </div>
-    </div>
-  </div>
-</section>
-
 <!-- FOOTER -->
 <footer>
   <div class="foot-logo">BUSONG</div>
@@ -664,14 +605,16 @@
   <p class="foot-slogan">"하나되는 우리! 승리하는 부송!"</p>
 
   <nav class="foot-nav">
-    <a href="https://manminkim-eng.github.io/Busong-Club-20th-Anniversary/" id="archiveLink" target="_blank" rel="noopener">전체 아카이브</a>
+    <a href="https://manminkim-eng.github.io/Busong-Club-20th-Ep01/" id="prevEp" target="_blank" rel="noopener">← EP1: 창단의 열정 (D-75)</a>
+    <a href="#" class="next" id="nextEp">EP3: 그래도, 부송 (D-45) →</a>
+    <a href="https://manminkim-eng.github.io/" id="archiveLink" target="_blank" rel="noopener">전체 아카이브</a>
     <a href="#hero">↑ 처음으로</a>
   </nav>
 
   <div class="foot-meta">
     기획 총괄 — <b>김만민 남부회장</b> (010-8287-1231)<br>
     발신·승인 — 김종왕 회장 (010-8642-1316)<br>
-    © 2026 부송 배드민턴 클럽
+    사이트 관리 — <a href="https://manminkim-eng.github.io/Busong-Club-20th-Ep01/" target="_blank" rel="noopener" style="color:#aaa;text-decoration:underline">EP1 사이트</a> / © 2026 부송 배드민턴 클럽
   </div>
 </footer>
 
@@ -689,102 +632,27 @@
 
 <script>
 // ===== 데이터 (서버에서 인라인 주입) =====
-// ===== 사진 데이터 (외부 파일 참조) =====
 const PHOTOS_BASE = "./assets/photos/";
 
-// ===== 사진 로딩 자동 복구 (Linux 서버 대소문자 차이 대응) =====
+// ===== 사진 로딩 자동 복구 (Linux 서버 대소문자 대응) =====
 window.tryFallback = function(img) {
   const filename = img.getAttribute('data-filename');
   const attempt = parseInt(img.getAttribute('data-attempt') || '0');
-  
   if (attempt === 0) {
-    // 1차 시도: 전체 소문자
     img.setAttribute('data-attempt', '1');
     img.src = PHOTOS_BASE + filename.toLowerCase();
-    console.warn('[사진 로딩 실패 → 소문자 시도]', filename);
   } else if (attempt === 1) {
-    // 2차 시도: 확장자만 대문자
     img.setAttribute('data-attempt', '2');
-    const base = filename.replace(/\.[^.]+$/, '');
-    img.src = PHOTOS_BASE + base.toLowerCase() + '.JPG';
-    console.warn('[2차 실패 → .JPG 시도]', filename);
-  } else if (attempt === 2) {
-    // 3차 시도: 전체 대문자
-    img.setAttribute('data-attempt', '3');
     img.src = PHOTOS_BASE + filename.toUpperCase();
-    console.warn('[3차 실패 → 대문자 시도]', filename);
   } else {
-    // 모든 시도 실패: placeholder 표시
     img.removeAttribute('onerror');
     img.style.cssText = 'background:#1a1410;color:#E1C58A;display:flex;align-items:center;justify-content:center;font-size:0.7rem;padding:1rem;text-align:center;';
     img.alt = '사진을 찾을 수 없음: ' + filename;
-    console.error('[최종 실패] 모든 케이스로 시도해도 못 찾음:', filename);
+    console.error('[사진 로딩 실패]', filename);
   }
 };
 
-const photoMap = {
-  "20110220_110DA54C4D61F1.jpg": PHOTOS_BASE + "20110220_110DA54C4D61F1.jpg",
-  "20110220_134E61494D61F1.jpg": PHOTOS_BASE + "20110220_134E61494D61F1.jpg",
-  "20111108_196470494EB8A4.jpg": PHOTOS_BASE + "20111108_196470494EB8A4.jpg",
-  "20111114_11542F434EC089.jpg": PHOTOS_BASE + "20111114_11542F434EC089.jpg",
-  "20111114_141BA5374EC066.jpg": PHOTOS_BASE + "20111114_141BA5374EC066.jpg",
-  "20111114_155FCF414EC089.jpg": PHOTOS_BASE + "20111114_155FCF414EC089.jpg",
-  "20111114_1826123A4EC080.jpg": PHOTOS_BASE + "20111114_1826123A4EC080.jpg",
-  "20120311_camera.jpg": PHOTOS_BASE + "20120311_camera.jpg",
-  "20120408_163CB1384F828D.jpg": PHOTOS_BASE + "20120408_163CB1384F828D.jpg",
-  "20120408_april.jpg": PHOTOS_BASE + "20120408_april.jpg",
-  "20130120_112DE145512449.jpg": PHOTOS_BASE + "20130120_112DE145512449.jpg",
-  "20130705_2455CE4C51D769.jpg": PHOTOS_BASE + "20130705_2455CE4C51D769.jpg",
-  "20130705_246BAE4C51D769.jpg": PHOTOS_BASE + "20130705_246BAE4C51D769.jpg",
-  "20130705_27521F4751DA01.jpg": PHOTOS_BASE + "20130705_27521F4751DA01.jpg",
-  "20130818_221A664A5210C4.jpg": PHOTOS_BASE + "20130818_221A664A5210C4.jpg",
-  "20130818_25012F4A5210C4.jpg": PHOTOS_BASE + "20130818_25012F4A5210C4.jpg",
-  "20130818_25255540521082.jpg": PHOTOS_BASE + "20130818_25255540521082.jpg",
-  "20130818_263C6D40521082.jpg": PHOTOS_BASE + "20130818_263C6D40521082.jpg",
-  "20130818_2711AC4A5210C4.jpg": PHOTOS_BASE + "20130818_2711AC4A5210C4.jpg",
-  "20131004_2206414F525B97.jpg": PHOTOS_BASE + "20131004_2206414F525B97.jpg",
-  "20131004_25565749525B97.jpg": PHOTOS_BASE + "20131004_25565749525B97.jpg",
-  "20131004_2759C849525B97.jpg": PHOTOS_BASE + "20131004_2759C849525B97.jpg",
-  "20140125_21671A4E52EF8F.jpg": PHOTOS_BASE + "20140125_21671A4E52EF8F.jpg",
-  "20140125_23293D3952EF8B.jpg": PHOTOS_BASE + "20140125_23293D3952EF8B.jpg",
-  "20140125_245FDA3952EF8B.jpg": PHOTOS_BASE + "20140125_245FDA3952EF8B.jpg",
-  "20140125_27317F3452EF8B.jpg": PHOTOS_BASE + "20140125_27317F3452EF8B.jpg",
-  "20140920_2461F83754635F.jpg": PHOTOS_BASE + "20140920_2461F83754635F.jpg",
-  "20140920_2659393754635F.jpg": PHOTOS_BASE + "20140920_2659393754635F.jpg",
-  "20140920_2664BD3754635F.jpg": PHOTOS_BASE + "20140920_2664BD3754635F.jpg",
-  "20140920_2666EF3754635F.jpg": PHOTOS_BASE + "20140920_2666EF3754635F.jpg",
-  "20141101_22526E3654596B.jpg": PHOTOS_BASE + "20141101_22526E3654596B.jpg",
-  "20141102_1414937902950.jpg": PHOTOS_BASE + "20141102_1414937902950.jpg",
-  "20141112_210DD238546361.jpg": PHOTOS_BASE + "20141112_210DD238546361.jpg",
-  "20141119_2014.11.19-2.jpg": PHOTOS_BASE + "20141119_2014.11.19-2.jpg",
-  "20141206_23563044548536.jpg": PHOTOS_BASE + "20141206_23563044548536.jpg",
-  "20141206_2361C544548536.jpg": PHOTOS_BASE + "20141206_2361C544548536.jpg",
-  "20141206_2371CE365488EA.jpg": PHOTOS_BASE + "20141206_2371CE365488EA.jpg",
-  "20141206_25389F3D54853A.jpg": PHOTOS_BASE + "20141206_25389F3D54853A.jpg",
-  "20141206_25470F4554853A.jpg": PHOTOS_BASE + "20141206_25470F4554853A.jpg",
-  "20141206_260B0C3854852D.jpg": PHOTOS_BASE + "20141206_260B0C3854852D.jpg",
-  "20141206_2659A244548536.jpg": PHOTOS_BASE + "20141206_2659A244548536.jpg",
-  "20150103_2551145054A8E4.jpg": PHOTOS_BASE + "20150103_2551145054A8E4.jpg",
-  "20150329_25385945551A57.jpg": PHOTOS_BASE + "20150329_25385945551A57.jpg",
-  "20150816_2262E53F55E278.jpg": PHOTOS_BASE + "20150816_2262E53F55E278.jpg",
-  "20150816_23248A4D55E27A.jpg": PHOTOS_BASE + "20150816_23248A4D55E27A.jpg",
-  "20150816_234BEA3B55DC32.jpg": PHOTOS_BASE + "20150816_234BEA3B55DC32.jpg",
-  "20150816_2364804855E27A.jpg": PHOTOS_BASE + "20150816_2364804855E27A.jpg",
-  "20150816_2415B93E55E278.jpg": PHOTOS_BASE + "20150816_2415B93E55E278.jpg",
-  "20150816_2460E14F55E27B.jpg": PHOTOS_BASE + "20150816_2460E14F55E27B.jpg",
-  "20150816_24705B4F55E27B.jpg": PHOTOS_BASE + "20150816_24705B4F55E27B.jpg",
-  "20150816_2470D74855E279.jpg": PHOTOS_BASE + "20150816_2470D74855E279.jpg",
-  "20150816_2501664855E279.jpg": PHOTOS_BASE + "20150816_2501664855E279.jpg",
-  "20150816_2520764E55E28A.jpg": PHOTOS_BASE + "20150816_2520764E55E28A.jpg",
-  "20150816_2534C43A55DC31.jpg": PHOTOS_BASE + "20150816_2534C43A55DC31.jpg",
-  "20150816_26218D3D55E279.jpg": PHOTOS_BASE + "20150816_26218D3D55E279.jpg",
-  "20150816_2712A03F55E277.jpg": PHOTOS_BASE + "20150816_2712A03F55E277.jpg",
-  "20150816_2716183D55E279.jpg": PHOTOS_BASE + "20150816_2716183D55E279.jpg",
-  "20150816_276CE04455E278.jpg": PHOTOS_BASE + "20150816_276CE04455E278.jpg",
-  "P5_slide.jpg": PHOTOS_BASE + "P5_slide.jpg",
-  "P6_slide.jpg": PHOTOS_BASE + "P6_slide.jpg",
-  "P9_slide.jpg": PHOTOS_BASE + "P9_slide.jpg",
-};
+const photoMap = {"20110220_110DA54C4D61F1.jpg": PHOTOS_BASE + "20110220_110DA54C4D61F1.jpg", "20110220_134E61494D61F1.jpg": PHOTOS_BASE + "20110220_134E61494D61F1.jpg", "20111108_196470494EB8A4.jpg": PHOTOS_BASE + "20111108_196470494EB8A4.jpg", "20111114_11542F434EC089.jpg": PHOTOS_BASE + "20111114_11542F434EC089.jpg", "20111114_141BA5374EC066.jpg": PHOTOS_BASE + "20111114_141BA5374EC066.jpg", "20111114_155FCF414EC089.jpg": PHOTOS_BASE + "20111114_155FCF414EC089.jpg", "20111114_1826123A4EC080.jpg": PHOTOS_BASE + "20111114_1826123A4EC080.jpg", "20120311_camera.jpg": PHOTOS_BASE + "20120311_camera.jpg", "20120408_163CB1384F828D.jpg": PHOTOS_BASE + "20120408_163CB1384F828D.jpg", "20120408_april.jpg": PHOTOS_BASE + "20120408_april.jpg", "20130120_112DE145512449.jpg": PHOTOS_BASE + "20130120_112DE145512449.jpg", "20130705_2455CE4C51D769.jpg": PHOTOS_BASE + "20130705_2455CE4C51D769.jpg", "20130705_246BAE4C51D769.jpg": PHOTOS_BASE + "20130705_246BAE4C51D769.jpg", "20130705_27521F4751DA01.jpg": PHOTOS_BASE + "20130705_27521F4751DA01.jpg", "20130818_221A664A5210C4.jpg": PHOTOS_BASE + "20130818_221A664A5210C4.jpg", "20130818_25012F4A5210C4.jpg": PHOTOS_BASE + "20130818_25012F4A5210C4.jpg", "20130818_25255540521082.jpg": PHOTOS_BASE + "20130818_25255540521082.jpg", "20130818_263C6D40521082.jpg": PHOTOS_BASE + "20130818_263C6D40521082.jpg", "20130818_2711AC4A5210C4.jpg": PHOTOS_BASE + "20130818_2711AC4A5210C4.jpg", "20131004_2206414F525B97.jpg": PHOTOS_BASE + "20131004_2206414F525B97.jpg", "20131004_25565749525B97.jpg": PHOTOS_BASE + "20131004_25565749525B97.jpg", "20131004_2759C849525B97.jpg": PHOTOS_BASE + "20131004_2759C849525B97.jpg", "20140125_21671A4E52EF8F.jpg": PHOTOS_BASE + "20140125_21671A4E52EF8F.jpg", "20140125_23293D3952EF8B.jpg": PHOTOS_BASE + "20140125_23293D3952EF8B.jpg", "20140125_245FDA3952EF8B.jpg": PHOTOS_BASE + "20140125_245FDA3952EF8B.jpg", "20140125_27317F3452EF8B.jpg": PHOTOS_BASE + "20140125_27317F3452EF8B.jpg", "20140920_2461F83754635F.jpg": PHOTOS_BASE + "20140920_2461F83754635F.jpg", "20140920_2659393754635F.jpg": PHOTOS_BASE + "20140920_2659393754635F.jpg", "20140920_2664BD3754635F.jpg": PHOTOS_BASE + "20140920_2664BD3754635F.jpg", "20140920_2666EF3754635F.jpg": PHOTOS_BASE + "20140920_2666EF3754635F.jpg", "20141101_22526E3654596B.jpg": PHOTOS_BASE + "20141101_22526E3654596B.jpg", "20141102_1414937902950.jpg": PHOTOS_BASE + "20141102_1414937902950.jpg", "20141112_210DD238546361.jpg": PHOTOS_BASE + "20141112_210DD238546361.jpg", "20141119_2014.11.19-2.jpg": PHOTOS_BASE + "20141119_2014.11.19-2.jpg", "20141206_23563044548536.jpg": PHOTOS_BASE + "20141206_23563044548536.jpg", "20141206_2361C544548536.jpg": PHOTOS_BASE + "20141206_2361C544548536.jpg", "20141206_2371CE365488EA.jpg": PHOTOS_BASE + "20141206_2371CE365488EA.jpg", "20141206_25389F3D54853A.jpg": PHOTOS_BASE + "20141206_25389F3D54853A.jpg", "20141206_25470F4554853A.jpg": PHOTOS_BASE + "20141206_25470F4554853A.jpg", "20141206_260B0C3854852D.jpg": PHOTOS_BASE + "20141206_260B0C3854852D.jpg", "20141206_2659A244548536.jpg": PHOTOS_BASE + "20141206_2659A244548536.jpg", "20150103_2551145054A8E4.jpg": PHOTOS_BASE + "20150103_2551145054A8E4.jpg", "20150329_25385945551A57.jpg": PHOTOS_BASE + "20150329_25385945551A57.jpg", "20150816_2262E53F55E278.jpg": PHOTOS_BASE + "20150816_2262E53F55E278.jpg", "20150816_23248A4D55E27A.jpg": PHOTOS_BASE + "20150816_23248A4D55E27A.jpg", "20150816_234BEA3B55DC32.jpg": PHOTOS_BASE + "20150816_234BEA3B55DC32.jpg", "20150816_2364804855E27A.jpg": PHOTOS_BASE + "20150816_2364804855E27A.jpg", "20150816_2415B93E55E278.jpg": PHOTOS_BASE + "20150816_2415B93E55E278.jpg", "20150816_2460E14F55E27B.jpg": PHOTOS_BASE + "20150816_2460E14F55E27B.jpg", "20150816_24705B4F55E27B.jpg": PHOTOS_BASE + "20150816_24705B4F55E27B.jpg", "20150816_2470D74855E279.jpg": PHOTOS_BASE + "20150816_2470D74855E279.jpg", "20150816_2501664855E279.jpg": PHOTOS_BASE + "20150816_2501664855E279.jpg", "20150816_2520764E55E28A.jpg": PHOTOS_BASE + "20150816_2520764E55E28A.jpg", "20150816_2534C43A55DC31.jpg": PHOTOS_BASE + "20150816_2534C43A55DC31.jpg", "20150816_26218D3D55E279.jpg": PHOTOS_BASE + "20150816_26218D3D55E279.jpg", "20150816_2712A03F55E277.jpg": PHOTOS_BASE + "20150816_2712A03F55E277.jpg", "20150816_2716183D55E279.jpg": PHOTOS_BASE + "20150816_2716183D55E279.jpg", "20150816_276CE04455E278.jpg": PHOTOS_BASE + "20150816_276CE04455E278.jpg", "P5_slide.jpg": PHOTOS_BASE + "P5_slide.jpg", "P6_slide.jpg": PHOTOS_BASE + "P6_slide.jpg", "P9_slide.jpg": PHOTOS_BASE + "P9_slide.jpg"};
 const photoData = {"ch1_2011": {"title": "2011년 — 조용한 4년차", "subtitle": "체육관에 새겨진 매주의 발자국", "photos": [{"filename": "20110220_110DA54C4D61F1.jpg", "original": "110DA54C4D61F18F21.jfif", "date": "2011-02-20", "source": "exif", "note": "촬영시각 18:51", "caption": "정월의 체육관 — 4년차의 일상"}, {"filename": "20110220_134E61494D61F1.jpg", "original": "134E61494D61F15C01.jfif", "date": "2011-02-20", "source": "exif", "note": "촬영시각 18:52", "caption": "정월의 체육관 — 4년차의 일상"}, {"filename": "20111108_196470494EB8A4.jpg", "original": "196470494EB8A4D72C.jfif", "date": "2011-11-08", "source": "cafe (EXIF의심)", "note": "EXIF: 2010-02-26 23:36, 카페: 2011-11-08", "caption": "★ 11월 8일 행사 — 가을의 단합"}, {"filename": "20111114_1826123A4EC080.jpg", "original": "1826123A4EC0809610.jfif", "date": "2011-11-14", "source": "fixed_4EC0_group", "note": "4EC0 그룹 일관성 (이전: 2011-11-14)", "caption": "★ 11월 14일 단체모임 — 4년차의 결속"}, {"filename": "20111114_155FCF414EC089.jpg", "original": "155FCF414EC089DF2B.jfif", "date": "2011-11-14", "source": "fixed_4EC0_group", "note": "4EC0 그룹 일관성 (이전: 2015-09-19)", "caption": "★ 11월 14일 단체모임 — 4년차의 결속"}, {"filename": "20111114_141BA5374EC066.jpg", "original": "141BA5374EC0668C3B.jfif", "date": "2011-11-14", "source": "fixed_4EC0_group", "note": "4EC0 그룹 일관성 (이전: 2014-05-15)", "caption": "★ 11월 14일 단체모임 — 4년차의 결속"}, {"filename": "20111114_11542F434EC089.jpg", "original": "11542F434EC0896717.jfif", "date": "2011-11-14", "source": "fixed_4EC0_group", "note": "4EC0 그룹 일관성 (이전: 2014-10-04)", "caption": "★ 11월 14일 단체모임 — 4년차의 결속"}]}, "ch2_2012": {"title": "2012년 — 익산 지역과 함께", "subtitle": "5년차의 부송, 더 넓은 무대로", "photos": [{"filename": "20120311_camera.jpg", "original": "#Uce74#Uba54#Ub77c 640.jpg", "date": "2012-03-11", "source": "exif", "note": "촬영시각 13:28", "caption": "3월의 한 컷 (디지털카메라)"}, {"filename": "20120408_163CB1384F828D.jpg", "original": "163CB1384F828D8913.jfif", "date": "2012-04-08", "source": "exif", "note": "촬영시각 16:10", "caption": "★ 익산 지역 큰 행사 — 부송 단합"}, {"filename": "20120408_april.jpg", "original": "4#Uc6d4 #Uc8fc#Ub9d0#Ub9ac#Uadf8 023.jpg", "date": "2012-04-08", "source": "exif", "note": "촬영시각 16:12", "caption": "★ 익산 지역 큰 행사 — 부송 단합"}]}, "ch3_2013": {"title": "2013년 — 코트 밖에서 더 가까이", "subtitle": "여름 회식, 한여름 야유회, 가을의 정", "photos": [{"filename": "20130120_112DE145512449.jpg", "original": "112DE1455124497811.jfif", "date": "2013-01-20", "source": "exif", "note": "촬영시각 19:46", "caption": "1월 정월의 체육관"}, {"filename": "20130705_2455CE4C51D769.jpg", "original": "2455CE4C51D769CA0E.jfif", "date": "2013-07-05", "source": "exif", "note": "촬영시각 22:10", "caption": "★ 7월 5일 — 여름 회식의 밤"}, {"filename": "20130705_246BAE4C51D769.jpg", "original": "246BAE4C51D769CB08.jfif", "date": "2013-07-05", "source": "exif", "note": "촬영시각 22:10", "caption": "★ 7월 5일 — 여름 회식의 밤"}, {"filename": "20130705_27521F4751DA01.jpg", "original": "27521F4751DA01E618.jfif", "date": "2013-07-05", "source": "exif", "note": "촬영시각 20:40", "caption": "★ 7월 5일 — 여름 회식의 밤"}, {"filename": "20130818_221A664A5210C4.jpg", "original": "221A664A5210C4C232.jfif", "date": "2013-08-18", "source": "exif", "note": "촬영시각 12:13", "caption": "★ 8월 18일 — 한여름 야유회 단체"}, {"filename": "20130818_25012F4A5210C4.jpg", "original": "25012F4A5210C4C627.jfif", "date": "2013-08-18", "source": "exif", "note": "촬영시각 12:13", "caption": "★ 8월 18일 — 한여름 야유회 단체"}, {"filename": "20130818_25255540521082.jpg", "original": "252555405210820306.jfif", "date": "2013-08-18", "source": "exif", "note": "촬영시각 12:12", "caption": "★ 8월 18일 — 한여름 야유회 단체"}, {"filename": "20130818_263C6D40521082.jpg", "original": "263C6D40521082002C.jfif", "date": "2013-08-18", "source": "exif", "note": "촬영시각 12:11", "caption": "★ 8월 18일 — 한여름 야유회 단체"}, {"filename": "20130818_2711AC4A5210C4.jpg", "original": "2711AC4A5210C4CC24.jfif", "date": "2013-08-18", "source": "exif", "note": "촬영시각 12:13", "caption": "★ 8월 18일 — 한여름 야유회 단체"}, {"filename": "20131004_2206414F525B97.jpg", "original": "2206414F525B972011.jfif", "date": "2013-10-04", "source": "exif", "note": "촬영시각 21:25", "caption": "★ 10월 가을 회식 — 따뜻한 밤"}, {"filename": "20131004_25565749525B97.jpg", "original": "25565749525B97220B.jfif", "date": "2013-10-04", "source": "exif", "note": "촬영시각 21:48", "caption": "★ 10월 가을 회식 — 따뜻한 밤"}, {"filename": "20131004_2759C849525B97.jpg", "original": "2759C849525B972308.jfif", "date": "2013-10-04", "source": "exif", "note": "촬영시각 21:48", "caption": "★ 10월 가을 회식 — 따뜻한 밤"}]}, "ch4_2014": {"title": "2014년 — 가장 활기찼던 한 해", "subtitle": "월례대회·단체훈련·송년 모임의 정점", "photos": [{"filename": "20140125_21671A4E52EF8F.jpg", "original": "21671A4E52EF8FBC38.jfif", "date": "2014-01-25", "source": "exif", "note": "촬영시각 22:22", "caption": "★ 1월 25일 — 정월 모임의 흥"}, {"filename": "20140125_23293D3952EF8B.jpg", "original": "23293D3952EF8BCD31.jfif", "date": "2014-01-25", "source": "exif", "note": "촬영시각 20:22", "caption": "★ 1월 25일 — 정월 모임의 흥"}, {"filename": "20140125_245FDA3952EF8B.jpg", "original": "245FDA3952EF8BD31B.jfif", "date": "2014-01-25", "source": "exif", "note": "촬영시각 20:27", "caption": "★ 1월 25일 — 정월 모임의 흥"}, {"filename": "20140125_27317F3452EF8B.jpg", "original": "27317F3452EF8BF52A.jfif", "date": "2014-01-25", "source": "exif", "note": "촬영시각 21:55", "caption": "★ 1월 25일 — 정월 모임의 흥"}, {"filename": "20140920_2461F83754635F.jpg", "original": "2461F83754635F982D.jfif", "date": "2014-09-20", "source": "exif", "note": "촬영시각 19:20", "caption": "★ 9월 20일 — 가을 단합"}, {"filename": "20140920_2659393754635F.jpg", "original": "2659393754635F9D36.jfif", "date": "2014-09-20", "source": "exif", "note": "촬영시각 19:21", "caption": "★ 9월 20일 — 가을 단합"}, {"filename": "20140920_2664BD3754635F.jpg", "original": "2664BD3754635FA02B.jfif", "date": "2014-09-20", "source": "exif", "note": "촬영시각 19:22", "caption": "★ 9월 20일 — 가을 단합"}, {"filename": "20140920_2666EF3754635F.jpg", "original": "2666EF3754635F9B28.jfif", "date": "2014-09-20", "source": "exif", "note": "촬영시각 19:21", "caption": "★ 9월 20일 — 가을 단합"}, {"filename": "20141101_22526E3654596B.jpg", "original": "22526E3654596B7828.jfif", "date": "2014-11-01", "source": "exif", "note": "촬영시각 22:46", "caption": "11월 1일 — 가을의 결속"}, {"filename": "20141102_1414937902950.jpg", "original": "1414937902950.jpeg", "date": "2014-11-02", "source": "filename ts", "note": "유닉스 timestamp 변환", "caption": "11월 초의 모임"}, {"filename": "20141112_210DD238546361.jpg", "original": "210DD238546361AB10.jfif", "date": "2014-11-12", "source": "cafe", "note": "카페 업로드 시점", "caption": "11월 12일 단체모임"}, {"filename": "20141119_2014.11.19-2.jpg", "original": "2014.11.19-2.jpeg", "date": "2014-11-19", "source": "filename", "note": "회식 — 명시 날짜", "caption": "★ 회식의 추억 — 코트의 두 번째 집"}, {"filename": "20141206_23563044548536.jpg", "original": "23563044548536ED1E.jfif", "date": "2014-12-06", "source": "exif", "note": "촬영시각 19:42", "caption": "★ 12월 6일 — 송년 모임 (7장)"}, {"filename": "20141206_2361C544548536.jpg", "original": "2361C544548536FA07.jfif", "date": "2014-12-06", "source": "exif", "note": "촬영시각 19:43", "caption": "★ 12월 6일 — 송년 모임 (7장)"}, {"filename": "20141206_2371CE365488EA.jpg", "original": "2371CE365488EAB402.jfif", "date": "2014-12-06", "source": "exif", "note": "촬영시각 21:15", "caption": "★ 12월 6일 — 송년 모임 (7장)"}, {"filename": "20141206_25389F3D54853A.jpg", "original": "25389F3D54853A552D.jfif", "date": "2014-12-06", "source": "exif", "note": "촬영시각 20:17", "caption": "★ 12월 6일 — 송년 모임 (7장)"}, {"filename": "20141206_25470F4554853A.jpg", "original": "25470F4554853A2B1D.jfif", "date": "2014-12-06", "source": "exif", "note": "촬영시각 19:59", "caption": "★ 12월 6일 — 송년 모임 (7장)"}, {"filename": "20141206_260B0C3854852D.jpg", "original": "260B0C3854852D480F.jfif", "date": "2014-12-06", "source": "exif", "note": "촬영시각 19:33", "caption": "★ 12월 6일 — 송년 모임 (7장)"}, {"filename": "20141206_2659A244548536.jpg", "original": "2659A244548536F416.jfif", "date": "2014-12-06", "source": "exif", "note": "촬영시각 19:43", "caption": "★ 12월 6일 — 송년 모임 (7장)"}]}, "ch5_2015": {"title": "2015년 — 9년차의 여름", "subtitle": "★ EP2 영상의 정점, 8월 16일 야유회", "photos": [{"filename": "20150103_2551145054A8E4.jpg", "original": "2551145054A8E4560B.jfif", "date": "2015-01-03", "source": "exif", "note": "촬영시각 18:47", "caption": "정월의 시작 — 9년차 부송"}, {"filename": "20150329_25385945551A57.jpg", "original": "25385945551A571B0B.jfif", "date": "2015-03-29", "source": "exif", "note": "촬영시각 17:01", "caption": "춘분의 정기훈련"}, {"filename": "20150816_2262E53F55E278.jpg", "original": "2262E53F55E278093A.jfif", "date": "2015-08-16", "source": "exif", "note": "촬영시각 11:48", "caption": "★★★ 8월 16일 — 여름 야유회 대축제"}, {"filename": "20150816_23248A4D55E27A.jpg", "original": "23248A4D55E27AF629.jfif", "date": "2015-08-16", "source": "exif", "note": "촬영시각 12:15", "caption": "★★★ 8월 16일 — 여름 야유회 대축제"}, {"filename": "20150816_234BEA3B55DC32.jpg", "original": "234BEA3B55DC328A32.jfif", "date": "2015-08-16", "source": "exif", "note": "촬영시각 09:57", "caption": "★★★ 8월 16일 — 여름 야유회 대축제"}, {"filename": "20150816_2364804855E27A.jpg", "original": "2364804855E27A1B37.jfif", "date": "2015-08-16", "source": "exif", "note": "촬영시각 12:15", "caption": "★★★ 8월 16일 — 여름 야유회 대축제"}, {"filename": "20150816_2415B93E55E278.jpg", "original": "2415B93E55E2789406.jfif", "date": "2015-08-16", "source": "exif", "note": "촬영시각 12:02", "caption": "★★★ 8월 16일 — 여름 야유회 대축제"}, {"filename": "20150816_2460E14F55E27B.jpg", "original": "2460E14F55E27BC331.jfif", "date": "2015-08-16", "source": "exif", "note": "촬영시각 12:33", "caption": "★★★ 8월 16일 — 여름 야유회 대축제"}, {"filename": "20150816_24705B4F55E27B.jpg", "original": "24705B4F55E27BB823.jfif", "date": "2015-08-16", "source": "exif", "note": "촬영시각 12:30", "caption": "★★★ 8월 16일 — 여름 야유회 대축제"}, {"filename": "20150816_2470D74855E279.jpg", "original": "2470D74855E279F52E.jfif", "date": "2015-08-16", "source": "exif", "note": "촬영시각 12:12", "caption": "★★★ 8월 16일 — 여름 야유회 대축제"}, {"filename": "20150816_2501664855E279.jpg", "original": "2501664855E279EC22.jfif", "date": "2015-08-16", "source": "exif", "note": "촬영시각 12:12", "caption": "★★★ 8월 16일 — 여름 야유회 대축제"}, {"filename": "20150816_2520764E55E28A.jpg", "original": "2520764E55E28ABE27.jfif", "date": "2015-08-16", "source": "exif", "note": "촬영시각 17:03", "caption": "★★★ 8월 16일 — 여름 야유회 대축제"}, {"filename": "20150816_2534C43A55DC31.jpg", "original": "2534C43A55DC31EA23.jfif", "date": "2015-08-16", "source": "exif", "note": "촬영시각 11:42", "caption": "★★★ 8월 16일 — 여름 야유회 대축제"}, {"filename": "20150816_26218D3D55E279.jpg", "original": "26218D3D55E2792E16.jfif", "date": "2015-08-16", "source": "exif", "note": "촬영시각 12:04", "caption": "★★★ 8월 16일 — 여름 야유회 대축제"}, {"filename": "20150816_2712A03F55E277.jpg", "original": "2712A03F55E277F21A.jfif", "date": "2015-08-16", "source": "exif", "note": "촬영시각 11:46", "caption": "★★★ 8월 16일 — 여름 야유회 대축제"}, {"filename": "20150816_2716183D55E279.jpg", "original": "2716183D55E2794C1F.jfif", "date": "2015-08-16", "source": "exif", "note": "촬영시각 12:09", "caption": "★★★ 8월 16일 — 여름 야유회 대축제"}, {"filename": "20150816_276CE04455E278.jpg", "original": "276CE04455E278AF0E.jfif", "date": "2015-08-16", "source": "exif", "note": "촬영시각 12:03", "caption": "★★★ 8월 16일 — 여름 야유회 대축제"}]}};
 const storyData = {"intro": {"title": "EP2 시작하며", "text": "2011년부터 2015년까지, 다음 카페에 남은 58장의 사진과 함께 따라가는 5년의 발자취입니다."}, "chapters": [{"no": "01", "year_range": "2011", "title": "조용한 4년차", "subtitle": "체육관에 새겨진 매주의 발자국", "narrative": "창단 4년차. 2011년의 부송은 거창한 행사보다 매주 정기훈련이 쌓이던 시기였습니다. 정월의 체육관, 11월 8일과 14일의 가을 단합 — 평범한 일상이 곧 단단한 뿌리가 되었습니다. 특히 11월 14일 행사 사진은 한 회원이 새벽까지 카페에 올렸던 4장으로 남아있습니다.", "stat_label": "이 해 기록 / 11월 단합 4장", "stat_value": "7장", "photo_group_key": "ch1_2011"}, {"no": "02", "year_range": "2012", "title": "익산 지역과 함께", "subtitle": "5년차의 부송, 더 넓은 무대로", "narrative": "2012년 4월, 부송이 익산 지역의 큰 행사에도 함께 참여한 해입니다. 5년차에 접어든 부송은 이제 익산 지역 배드민턴 문화의 일부가 되어가고 있었습니다.", "stat_label": "이 해 기록", "stat_value": "3장", "photo_group_key": "ch2_2012"}, {"no": "03", "year_range": "2013", "title": "코트 밖에서 더 가까이", "subtitle": "여름 회식, 한여름 야유회, 가을의 정", "narrative": "2013년은 부송의 일상이 코트 밖으로 확장된 해입니다. 7월 5일 여름 회식, 8월 18일 한여름 야유회, 10월 4일 가을 모임까지 — 세 번의 의미있는 만남이 부송을 가족으로 만들었습니다.", "stat_label": "이 해 기록 / 행사 3회", "stat_value": "12장", "photo_group_key": "ch3_2013"}, {"no": "04", "year_range": "2014", "title": "가장 활기찼던 한 해", "subtitle": "월례대회·단체훈련·송년 모임의 정점", "narrative": "2014년은 자료가 가장 풍부한 해입니다. 1월 25일 정월 모임으로 시작해서 12월 6일 송년 모임까지. 9월 가을 단합, 11월 회식, 12월 한 자리에 7장이 남은 송년 모임은 그해의 정수입니다.", "stat_label": "한 해 기록 / 행사 5회+", "stat_value": "19장", "photo_group_key": "ch4_2014"}, {"no": "05", "year_range": "2015", "title": "9년차의 여름", "subtitle": "★ EP2 영상의 정점, 8월 16일 야유회", "narrative": "2015년 8월 16일 — 단 하루에 15장. 오전 9시 57분부터 오후 5시 03분까지 한 자리에 함께였던 부송 회원들. 이 날의 기록이 EP2 영상의 정점이자, 5년의 발자취가 도달한 곳입니다. 정월부터 8월까지 이어진 17장의 모든 순간이 결국 이 한 날을 향해 있었습니다.", "stat_label": "★★ 8/16에만 15장 / 영상 정점", "stat_value": "17장", "photo_group_key": "ch5_2015"}], "epilogue": {"quote": "5년의 시간이 도달한 곳 — 2015년 8월의 어느 하루.", "text": "이 페이지는 EP2 영상에 담긴 이야기를 더 깊이 보고 싶은 분들을 위한 것입니다. 2011년부터 2015년까지 5년간, 카페에 남은 58장을 시간순으로 모았습니다. 한 장 한 장이 부송의 한 페이지입니다."}};
 
@@ -832,12 +700,7 @@ storyData.chapters.forEach(ch => {
     allPhotos.push(p);
     return `
       <div class="photo" onclick="openLb(${idx})">
-        <img src="${photoMap[p.filename]}" 
-             data-filename="${p.filename}"
-             alt="${p.caption||p.date}" 
-             loading="lazy" 
-             decoding="async"
-             onerror="tryFallback(this)">
+        <img src="${photoMap[p.filename]}" data-filename="${p.filename}" alt="${p.caption||p.date}" loading="lazy" onerror="tryFallback(this)">
         <div class="meta">
           <div class="date">${p.date}</div>
           <div class="cap">${p.caption||''}</div>
@@ -881,6 +744,9 @@ function openLb(idx){
 function showLb(){
   const p = allPhotos[lbCur];
   // 풀 사이즈는 원본 폴더, 썸네일은 photos_thumb 폴더
+  lbImg.setAttribute('data-filename', p.filename);
+  lbImg.removeAttribute('data-attempt');
+  lbImg.setAttribute('onerror', 'tryFallback(this)');
   lbImg.src = photoMap[p.filename];
   lbDate.textContent = p.date;
   lbCap.textContent = p.caption || '';
@@ -995,7 +861,7 @@ window.addEventListener('scroll', tryAutoplay, {once:true});
 document.body.addEventListener('touchstart', tryAutoplay, {once:true});  // 모바일
 
 // ===== 사이드 네비 (스크롤 위치 추적) =====
-const sections = ['hero','prologue','story','video','epilogue','omnibus'];
+const sections = ['hero','prologue','story','video','epilogue'];
 const navLinks = document.querySelectorAll('.side-nav a');
 window.addEventListener('scroll', () => {
   let cur = 0;
